@@ -9,7 +9,9 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:5173", // allow specific origin
+  
+ origin: "https://deploy-mern-1whq.vercel.app", // allow specific origin
+//  origin: "http://localhost:5173",
   methods: ["GET", "POST"], // specify allowed methods
   credentials: true, // enable cookies for cross-origin requests
 };
