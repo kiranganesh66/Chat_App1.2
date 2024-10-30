@@ -11,7 +11,7 @@ const app = express();
 const corsOptions = {
   origin: "https://chat-app-kr.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+
   credentials: true,
 };
 
