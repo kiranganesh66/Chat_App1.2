@@ -8,16 +8,15 @@ const socket = require("socket.io");
 require("dotenv").config();
 const app = express();
 
+// CORS options to allow requests from your frontend
 const corsOptions = {
-  origin: "https://chat-app-kr.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-
-  credentials: true,
+  origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  credentials: true, // Allow cookies to be sent with requests
 };
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
-
+app.use(cors(corsOptions)); // Use CORS middleware
 app.use(express.json());
 app.use("/api/auth", userRoute);
 app.use("/api/message", messageRoute);
@@ -29,13 +28,14 @@ mongoose
   .catch((error) => console.log(error));
 
 // Server Connection
-const server = app.listen(process.env.PORT, () =>
-  console.log(`Server connected at http://localhost:${process.env.PORT}`)
-);
+const server = app.listen(process.env.PORT, () => {
+  console.log(`Server connected at http://localhost:${process.env.PORT}`);
+});
 
+// Socket.io setup
 const io = socket(server, {
   cors: {
-    origin: "https://chat-app-kr.vercel.app",
+    origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
     credentials: true,
   },
 });
