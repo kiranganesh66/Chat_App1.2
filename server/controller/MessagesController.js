@@ -12,6 +12,13 @@ module.exports.addMessage = async (req, res, next) => {
     if (data) {
       return res.json({ msg: "Message added successfully" });
     } else {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.setHeader("Access-Control-Allow-Headers", "content-type");
+      res.setHeader(
+        "Access-Control-Allow-Methods",
+        "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+      );
       return res.json({ msg: "Failed to add message to the database" });
     }
   } catch (e) {
@@ -31,6 +38,13 @@ module.exports.getAllMessage = async (req, res, next) => {
         message: msg.message.text,
       };
     });
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+    );
     res.json(projectMessages);
   } catch (ex) {
     next(ex);
