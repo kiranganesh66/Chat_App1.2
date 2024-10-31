@@ -72,7 +72,7 @@ function Login() {
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={logo_chat} alt="logo" />
-            <h1>KriPpyZy</h1>
+            <h1>ChatC</h1>
           </div>
           <input
             type="text"

@@ -26,7 +26,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         <Contanier>
           <div className="brand">
             <img src={logo_chat} alt="logo" />
-            <h3>KriPpyZy</h3>
+            <h3>ChatC</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
@@ -91,50 +91,49 @@ const Contanier = styled.div`
   }
 
   .contacts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto;
-  gap: 0.8rem;
-  
-  &::-webkit-scrollbar {
-    width: 0.2rem; 
-    
-    &-thumb {
-      background-color: #ffffff39;
-      width: 0.1rem;
-      border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    gap: 0.8rem;
+
+    &::-webkit-scrollbar {
+      width: 0.2rem;
+
+      &-thumb {
+        background-color: #ffffff39;
+        width: 0.1rem;
+        border-radius: 1rem;
+      }
     }
   }
-}
 
-
-    .contact {
-      background-color: #ffffff39;
-      min-height: 4.4rem;
-      width: 90%;
-      cursor: pointer;
-      border-radius: 0.2rem;
-      padding: 0.4rem;
-      gap: 1rem;
-      display: flex;
-      align-items: center;
-      transition: 0.5s ease-in-out;
-      .avatar {
-        img {
-          height: 3rem;
-        }
-      }
-      .userName {
-        h3 {
-          color: white;
-        }
+  .contact {
+    background-color: #ffffff39;
+    min-height: 4.4rem;
+    width: 90%;
+    cursor: pointer;
+    border-radius: 0.2rem;
+    padding: 0.4rem;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    transition: 0.5s ease-in-out;
+    .avatar {
+      img {
+        height: 3rem;
       }
     }
-    .selected {
-      background-color: #9186f3;
+    .userName {
+      h3 {
+        color: white;
+      }
     }
-  
+  }
+  .selected {
+    background-color: #9186f3;
+  }
+
   .current-user {
     background-color: #0d0d30;
     display: flex;
