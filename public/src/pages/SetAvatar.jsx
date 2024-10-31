@@ -13,7 +13,7 @@ export default function SetAvatar() {
   const navigate = useNavigate();
   const [avatars, setAvatar] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedAvatar, setselectedAvatar] = useState(undefined);
+  const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
   const toastOptions = {
     position: "bottom-right",
@@ -38,7 +38,6 @@ export default function SetAvatar() {
         localStorage.setItem("chat-aap-user", JSON.stringify(user));
         navigate("/");
       } else {
-        
         toast.error("Error setting Avatar. Please try again", toastOptions);
       }
     }
@@ -92,7 +91,7 @@ export default function SetAvatar() {
                   <img
                     src={`data:image/svg+xml;base64,${avatar}`}
                     alt="avatar"
-                    onClick={() => setselectedAvatar(index)}
+                    onClick={() => setSelectedAvatar(index)}
                   />
                 </div>
               );
