@@ -8,44 +8,34 @@ const socket = require("socket.io");
 require("dotenv").config();
 const app = express();
 
+// CORS options to allow requests from your frontend
 const corsOptions = {
-  origin: "https://chat-app-kr.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
+  origin: "http://localhost:5173", // Allow requests from this origin
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
+  //allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  credentials: true, // Allow cookies to be sent with requests
 };
 
-app.use(cors(corsOptions));
-
-// CORS setup
-// const corsOptions = {
-//   origin: "https://chat-app-kr.vercel.app",
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   credentials: true,
-// };
-
+app.use("*", cors(corsOptions)); // Use CORS middleware
 app.use(express.json());
 app.use("/api/auth", userRoute);
 app.use("/api/message", messageRoute);
 
-// Improved Mongoose connection with error handling
+// Mongoose connection
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => {
-    console.error("MongoDB connection error:", error);
-    process.exit(1); // Stop server if DB connection fails
-  });
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("Mongoose connected successfully"))
+  .catch((error) => console.log(error));
 
-const server = app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port ${process.env.PORT || 3000}`);
+// Server Connection
+const server = app.listen(process.env.PORT, () => {
+  console.log(`Server connected at http://localhost:${process.env.PORT}`);
 });
 
+// Socket.io setup
 const io = socket(server, {
   cors: {
-    origin: "https://chat-app-kr.vercel.app",
+    origin: "http://localhost:5173", // Allow requests from this origin
     credentials: true,
   },
 });
@@ -53,8 +43,7 @@ const io = socket(server, {
 global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-  console.log("New socket connection:", socket.id);
-
+  global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
   });
