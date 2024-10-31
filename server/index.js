@@ -1,16 +1,17 @@
 const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoute = require("../server/route/UserRoute");
 const messageRoute = require("../server/route/MessagesRoute");
 const socket = require("socket.io");
+// Place this at the top
 
-require("dotenv").config();
 const app = express();
 
 // CORS options to allow requests from your frontend
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from this origin
+  origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
   //allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   credentials: true, // Allow cookies to be sent with requests
@@ -35,7 +36,7 @@ const server = app.listen(process.env.PORT, () => {
 // Socket.io setup
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:5173", // Allow requests from this origin
+    origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
     credentials: true,
   },
 });

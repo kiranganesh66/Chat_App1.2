@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
   },
   avatarImage: {
     type: String,
-    default: "",
+    default: "", 
   },
 });
 
