@@ -24,7 +24,10 @@ app.use("/api/message", messageRoute);
 
 // Mongoose connection
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Mongoose connected successfully"))
   .catch((error) => console.log(error));
 
