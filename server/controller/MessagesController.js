@@ -12,15 +12,12 @@ module.exports.addMessage = async (req, res, next) => {
     if (data) {
       return res.json({ msg: "Message added successfully" });
     } else {
-     
       return res.json({ msg: "Failed to add message to the database" });
     }
   } catch (e) {
     next(e);
   }
 };
-
-
 
 module.exports.getAllMessage = async (req, res, next) => {
   try {
@@ -34,7 +31,7 @@ module.exports.getAllMessage = async (req, res, next) => {
         message: msg.message.text,
       };
     });
-  
+
     res.json(projectMessages);
   } catch (ex) {
     next(ex);
