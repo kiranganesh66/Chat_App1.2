@@ -11,8 +11,8 @@ const app = express();
 // CORS options to allow requests from your frontend
 const corsOptions = {
   origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  // Specify allowed methods
+  
   credentials: true, // Allow cookies to be sent with requests
 };
 

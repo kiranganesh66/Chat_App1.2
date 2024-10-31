@@ -21,13 +21,6 @@ module.exports.register = async (req, res, next) => {
       password: hashPassword,
     });
     delete user.password;
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-    );
 
     return res.json({ status: true, user });
   } catch (error) {
@@ -55,13 +48,6 @@ module.exports.login = async (req, res, next) => {
       });
     }
     delete user.password;
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-    );
 
     return res.json({ status: true, user });
   } catch (error) {
@@ -77,13 +63,6 @@ module.exports.setAvatar = async (req, res, next) => {
       isAvatarImageSet: true,
       avatarImage,
     });
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-    );
 
     return res.json({
       isSet: userData.isAvatarImageSet,
@@ -103,13 +82,6 @@ module.exports.getAllUsers = async (req, res, next) => {
       "avatarImage",
       "_id",
     ]);
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-    );
 
     return res.json({
       users,
