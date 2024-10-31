@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
   origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
-  //allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   credentials: true, // Allow cookies to be sent with requests
 };
 
