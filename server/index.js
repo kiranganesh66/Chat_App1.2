@@ -8,47 +8,36 @@ const socket = require("socket.io");
 require("dotenv").config();
 const app = express();
 
-// CORS options to allow requests from your frontend
+// CORS setup
 const corsOptions = {
-  origin: "https://chat-app-kr.vercel.app", // Allow requests from this origin
+  origin: "https://chat-app-kr.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
 
-app.use(cors(corsOptions)); // Use CORS middleware
-app.options("*", cors(corsOptions)); // Handle preflight requests for all routes
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
-// Middleware to handle OPTIONS requests
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://chat-app-kr.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-  next();
-});
-
-// JSON parsing
 app.use(express.json());
-
-// API routes
 app.use("/api/auth", userRoute);
 app.use("/api/message", messageRoute);
 
-// Mongoose connection
+// Improved Mongoose connection with error handling
 mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("Mongoose connected successfully"))
-  .catch((error) => console.log(error));
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+    process.exit(1); // Stop server if DB connection fails
+  });
 
-// Server setup
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server connected at http://localhost:${process.env.PORT}`);
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server running on port ${process.env.PORT || 3000}`);
 });
 
-// Socket.io setup with CORS settings
 const io = socket(server, {
   cors: {
     origin: "https://chat-app-kr.vercel.app",
@@ -59,7 +48,8 @@ const io = socket(server, {
 global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-  global.chatSocket = socket;
+  console.log("New socket connection:", socket.id);
+
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
   });
