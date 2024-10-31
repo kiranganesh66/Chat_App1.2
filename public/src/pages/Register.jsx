@@ -32,26 +32,50 @@ function Register() {
     }
   }, []);
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   if (handleValidation()) {
+  //     //   console.log("in Valodation", registerRoute);
+  //     const { userName, email, password } = value;
+  //     const { data } = await axios.post(registerRoute, {
+  //       userName,
+  //       email,
+  //       password,
+  //     });
+  //     if (data.status === false) {
+  //       toast.error(data.msg, toastOptions);
+  //     }
+  //     if (data.status === true) {
+  //       localStorage.setItem("chat-aap-user", JSON.stringify(data.user));
+  //       navigate("/");
+  //     }
+  //   }
+  // };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      //   console.log("in Valodation", registerRoute);
       const { userName, email, password } = value;
-      const { data } = await axios.post(registerRoute, {
-        userName,
-        email,
-        password,
-      });
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
-      }
-      if (data.status === true) {
-        localStorage.setItem("chat-aap-user", JSON.stringify(data.user));
-        navigate("/");
+      try {
+        const { data } = await axios.post(registerRoute, {
+          userName,
+          email,
+          password,
+        });
+        if (data.status === false) {
+          toast.error(data.msg, toastOptions);
+        } else if (data.status === true) {
+          localStorage.setItem("chat-aap-user", JSON.stringify(data.user));
+          navigate("/");
+        }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.", toastOptions);
+        console.error(error); // Log the error for debugging
       }
     }
   };
-
+  
   const handleValidation = () => {
     const { userName, email, password, confirmPassword } = value;
 
