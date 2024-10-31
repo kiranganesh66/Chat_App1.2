@@ -8,15 +8,20 @@ const socket = require("socket.io");
 require("dotenv").config();
 const app = express();
 
-// CORS setup
 const corsOptions = {
   origin: "https://chat-app-kr.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+
+// CORS setup
+// const corsOptions = {
+//   origin: "https://chat-app-kr.vercel.app",
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   credentials: true,
+// };
 
 app.use(express.json());
 app.use("/api/auth", userRoute);
